@@ -23,6 +23,27 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
 
-    token = create_access_token({"sub": new_user.id})
+    token = create_access_token({"sub": str(new_user.id)})
 
-    return {"user": new_user, "token": token}
+    return {
+        "data": {
+            "user": new_user,
+            "token": token
+        }
+    }
+
+@router.post("/login")
+def login(user: UserLogin, db: Session = Depends(get_db)):
+    db_user = db.query(User).filter(User.email == user.email).first()
+
+    if not db_user or not verify_password(user.password, db_user.password_hash):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    token = create_access_token({"sub": str(db_user.id)})
+
+    return {
+        "data": {
+            "user": db_user,
+            "token": token
+        }
+    }
