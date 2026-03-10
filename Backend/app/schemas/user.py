@@ -6,6 +6,10 @@ class UserCreate(BaseModel):
     email: str
     password: str
 
+class AuthResponse(BaseModel):
+    user: UserResponse
+    token: str
+
 class UserLogin(BaseModel):
     email: str
     password: str
