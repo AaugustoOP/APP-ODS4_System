@@ -1,7 +1,7 @@
 
   # Sistema de Pomodoro Simples
 
-  This is a code bundle for Sistema de Pomodoro Simples. The original project is available at https://www.figma.com/design/yx39cByTZCQswMBLSf77BK/Sistema-de-Pomodoro-Simples.
+  Available in https://aaugustoop.github.io/APP-ODS4_System/
 
   ## Running the code
 
