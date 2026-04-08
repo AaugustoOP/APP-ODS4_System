@@ -44,12 +44,12 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
   const handleTimerComplete = () => {
     setIsRunning(false);
     playNotificationSound();
-    
+
     if (mode === 'focus') {
       onPomodoroComplete();
       const newCycles = completedCycles + 1;
       setCompletedCycles(newCycles);
-      
+
       if (newCycles % 4 === 0) {
         setMode('longBreak');
       } else {
@@ -100,10 +100,9 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
       initial={{ scale: 0.95, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 0.4, duration: 0.5 }}
-      className="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 md:p-12 border border-neutral-200 dark:border-neutral-800 transition-colors"
+      className="rounded-[2rem] border border-neutral-200/80 bg-white/85 p-8 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] backdrop-blur transition-colors dark:border-neutral-800 dark:bg-neutral-900/90 md:p-12"
     >
-      {/* Mode Selector */}
-      <div className="flex gap-3 mb-12 justify-center">
+      <div className="mb-12 flex flex-wrap justify-center gap-3">
         {(Object.keys(TIMER_CONFIGS) as TimerMode[]).map((m) => {
           const config = TIMER_CONFIGS[m];
           return (
@@ -111,10 +110,10 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
               key={m}
               onClick={() => !isRunning && setMode(m)}
               disabled={isRunning}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
+              className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all ${
                 mode === m
                   ? 'bg-[#6B7C5C] text-white shadow-lg shadow-[#6B7C5C]/20'
-                  : 'bg-transparent text-neutral-500 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900'
+                  : 'bg-transparent text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100'
               } ${isRunning ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'}`}
             >
               {config.label}
@@ -123,11 +122,9 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
         })}
       </div>
 
-      {/* Timer Display */}
       <div className="relative mb-12">
-        <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
-          {/* Progress Circle Background */}
-          <svg className="w-full h-full transform -rotate-90">
+        <div className="relative mx-auto h-64 w-64 md:h-80 md:w-80">
+          <svg className="h-full w-full -rotate-90 transform">
             <circle
               cx="50%"
               cy="50%"
@@ -146,15 +143,12 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
               strokeWidth="2"
               fill="none"
               strokeLinecap="round"
-              initial={{ strokeDasharray: `0 1000` }}
-              animate={{ 
-                strokeDasharray: `${progress * 10} 1000` 
-              }}
+              initial={{ strokeDasharray: '0 1000' }}
+              animate={{ strokeDasharray: `${progress * 10} 1000` }}
               transition={{ duration: 0.5 }}
             />
           </svg>
 
-          {/* Center Content */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <motion.div
               key={mode}
@@ -162,10 +156,10 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
               animate={{ opacity: 1 }}
               className="text-center"
             >
-              <div className="text-6xl md:text-7xl font-light text-neutral-900 dark:text-neutral-50 tabular-nums mb-2">
+              <div className="mb-2 text-6xl font-light tabular-nums text-neutral-900 dark:text-neutral-50 md:text-7xl">
                 {formatTime(timeLeft)}
               </div>
-              <div className="text-neutral-500 dark:text-neutral-500 text-sm">
+              <div className="text-sm text-neutral-500 dark:text-neutral-400">
                 {TIMER_CONFIGS[mode].label}
               </div>
             </motion.div>
@@ -173,20 +167,19 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
         </div>
       </div>
 
-      {/* Controls */}
-      <div className="flex gap-4 justify-center mb-8">
+      <div className="mb-8 flex justify-center gap-4">
         <button
           onClick={toggleTimer}
-          className="flex items-center gap-2 px-8 py-3 bg-[#6B7C5C] hover:bg-[#5a6b4d] text-white rounded-full font-medium transition-colors shadow-lg shadow-[#6B7C5C]/20"
+          className="flex items-center gap-2 rounded-full bg-[#6B7C5C] px-8 py-3 font-medium text-white shadow-lg shadow-[#6B7C5C]/20 transition-colors hover:bg-[#5a6b4d]"
         >
           {isRunning ? (
             <>
-              <Pause className="w-4 h-4" />
+              <Pause className="h-4 w-4" />
               <span>Pausar</span>
             </>
           ) : (
             <>
-              <Play className="w-4 h-4" />
+              <Play className="h-4 w-4" />
               <span>Iniciar</span>
             </>
           )}
@@ -194,29 +187,26 @@ export function PomodoroTimer({ onPomodoroComplete }: PomodoroTimerProps) {
 
         <button
           onClick={resetTimer}
-          className="flex items-center gap-2 px-6 py-3 bg-transparent text-neutral-600 dark:text-neutral-400 rounded-full font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-neutral-200 dark:border-neutral-800"
+          className="flex items-center gap-2 rounded-full border border-neutral-200 bg-transparent px-6 py-3 font-medium text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-800"
         >
-          <RotateCcw className="w-4 h-4" />
-          <span>Resetar</span>
+          <RotateCcw className="h-4 w-4" />
+          <span>Reiniciar</span>
         </button>
       </div>
 
-      {/* Cycle Counter */}
       <div className="text-center">
-        <div className="inline-flex gap-2 mb-2">
+        <div className="mb-2 inline-flex gap-2">
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                i < completedCycles % 4 
-                  ? 'bg-[#6B7C5C]' 
-                  : 'bg-neutral-300 dark:bg-neutral-700'
+              className={`h-2 w-2 rounded-full transition-colors ${
+                i < completedCycles % 4 ? 'bg-[#6B7C5C]' : 'bg-neutral-300 dark:bg-neutral-700'
               }`}
             />
           ))}
         </div>
-        <p className="text-neutral-500 dark:text-neutral-500 text-xs">
-          {completedCycles % 4}/4 até pausa longa
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          {completedCycles % 4}/4 ate a pausa longa
         </p>
       </div>
     </motion.div>

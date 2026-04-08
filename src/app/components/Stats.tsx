@@ -18,12 +18,12 @@ export function Stats({ completedPomodoros, totalStudyTime }: StatsProps) {
     },
     {
       icon: Clock,
-      label: 'Tempo Total',
+      label: 'Tempo total',
       value: hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`,
     },
     {
       icon: TrendingUp,
-      label: 'Meta Diária',
+      label: 'Meta diaria',
       value: `${Math.min(completedPomodoros, 8)}/8`,
     },
   ];
@@ -33,7 +33,7 @@ export function Stats({ completedPomodoros, totalStudyTime }: StatsProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.6, duration: 0.5 }}
-      className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4"
+      className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3"
     >
       {stats.map((stat, index) => {
         const Icon = stat.icon;
@@ -43,14 +43,14 @@ export function Stats({ completedPomodoros, totalStudyTime }: StatsProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + index * 0.1, duration: 0.4 }}
-            className="bg-neutral-50 dark:bg-neutral-900 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-800 transition-colors"
+            className="rounded-2xl border border-neutral-200/80 bg-white/85 p-6 shadow-[0_16px_40px_-28px_rgba(15,23,42,0.45)] backdrop-blur transition-colors dark:border-neutral-800 dark:bg-neutral-900/90"
           >
             <div className="flex items-center gap-4">
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#6B7C5C] to-[#8B9A7A]">
-                <Icon className="w-5 h-5 text-white" />
+              <div className="rounded-xl bg-gradient-to-br from-[#6B7C5C] to-[#8B9A7A] p-2.5">
+                <Icon className="h-5 w-5 text-white" />
               </div>
               <div className="flex-1">
-                <div className="text-neutral-500 dark:text-neutral-500 text-sm mb-0.5">
+                <div className="mb-0.5 text-sm text-neutral-500 dark:text-neutral-400">
                   {stat.label}
                 </div>
                 <div className="text-2xl font-light text-neutral-900 dark:text-neutral-50">
